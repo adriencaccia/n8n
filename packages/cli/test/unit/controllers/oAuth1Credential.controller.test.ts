@@ -1,5 +1,6 @@
 import nock from 'nock';
 import Container from 'typedi';
+import Csrf from 'csrf';
 import { Cipher } from 'n8n-core';
 import { mock } from 'jest-mock-extended';
 
@@ -30,6 +31,8 @@ describe('OAuth1CredentialController', () => {
 	const credentialsHelper = mockInstance(CredentialsHelper);
 	const credentialsRepository = mockInstance(CredentialsRepository);
 	const sharedCredentialsRepository = mockInstance(SharedCredentialsRepository);
+
+	const csrfSecret = 'csrf-secret';
 	const user = mock<User>({
 		id: '123',
 		password: 'password',
@@ -66,6 +69,8 @@ describe('OAuth1CredentialController', () => {
 		});
 
 		it('should return a valid auth URI', async () => {
+			jest.spyOn(Csrf.prototype, 'secretSync').mockReturnValueOnce(csrfSecret);
+			jest.spyOn(Csrf.prototype, 'create').mockReturnValueOnce('token');
 			sharedCredentialsRepository.findCredentialForUser.mockResolvedValueOnce(credential);
 			credentialsHelper.getDecrypted.mockResolvedValueOnce({});
 			credentialsHelper.applyDefaultsAndOverwrites.mockReturnValueOnce({
@@ -75,7 +80,8 @@ describe('OAuth1CredentialController', () => {
 			});
 			nock('https://example.domain')
 				.post('/oauth/request_token', {
-					oauth_callback: 'http://localhost:5678/rest/oauth1-credential/callback?cid=1',
+					oauth_callback:
+						'http://localhost:5678/rest/oauth1-credential/callback?state=eyJ0b2tlbiI6InRva2VuIiwiY2lkIjoiMSJ9',
 				})
 				.reply(200, { oauth_token: 'random-token' });
 			cipher.encrypt.mockReturnValue('encrypted');
