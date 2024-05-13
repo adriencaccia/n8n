@@ -1,7 +1,16 @@
 diff --git a/dist/index.cjs.js b/dist/index.cjs.js
-index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..dd7b9de44fc8b9c60dab1d0114abf6f5c00017a7 100644
+index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..591452e618bb297d21dcf066cff7606ea2460408 100644
 --- a/dist/index.cjs.js
 +++ b/dist/index.cjs.js
+@@ -67,7 +67,7 @@ function isCodSpeedBenchOptions(options) {
+   return "uri" in options;
+ }
+ function withCodSpeed(bench) {
+-  if (!core.Measurement.isInstrumented()) {
++  if (false) {
+     const rawRun = bench.run;
+     bench.run = async () => {
+       console.warn(
 @@ -89,13 +89,17 @@ function withCodSpeed(bench) {
      console.log(`[CodSpeed] running with @codspeed/tinybench v${"3.1.0"}`);
      core.setupCore();
@@ -16,16 +25,25 @@ index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..dd7b9de44fc8b9c60dab1d0114abf6f5
          await task.fn();
          await task.opts.afterEach?.call(task);
        });
-+      for (let i = 0; i < 10; i++) {
++      for (let i = 0; i < 100; i++) {
 +        await optimize();
 +      }
        await task.opts.beforeEach?.call(task);
        await core.mongoMeasurement.start(uri);
        await async function __codspeed_root_frame__() {
 diff --git a/dist/index.es5.js b/dist/index.es5.js
-index e20505951341fbfe7a9142c222aff1221ab19530..bd45a843739c898b74cff2aec1d0e37023e0554b 100644
+index e20505951341fbfe7a9142c222aff1221ab19530..078ab22a6772f3988a0789966b5b84e2ed7e15a7 100644
 --- a/dist/index.es5.js
 +++ b/dist/index.es5.js
+@@ -65,7 +65,7 @@ function isCodSpeedBenchOptions(options) {
+   return "uri" in options;
+ }
+ function withCodSpeed(bench) {
+-  if (!Measurement.isInstrumented()) {
++  if (false) {
+     const rawRun = bench.run;
+     bench.run = async () => {
+       console.warn(
 @@ -87,13 +87,17 @@ function withCodSpeed(bench) {
      console.log(`[CodSpeed] running with @codspeed/tinybench v${"3.1.0"}`);
      setupCore();
@@ -40,7 +58,7 @@ index e20505951341fbfe7a9142c222aff1221ab19530..bd45a843739c898b74cff2aec1d0e370
          await task.fn();
          await task.opts.afterEach?.call(task);
        });
-+      for (let i = 0; i < 10; i++) {
++      for (let i = 0; i < 100; i++) {
 +        await optimize();
 +      }
        await task.opts.beforeEach?.call(task);
