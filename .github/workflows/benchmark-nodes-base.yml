@@ -2,11 +2,10 @@ name: Benchmark nodes-base
 
 on:
   pull_request:
-    paths:
-      - 'packages/core/**'
-      - 'packages/workflow/**'
-      - 'packages/nodes-base/**'
   workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   benchmark:
@@ -44,3 +43,5 @@ jobs:
         with:
           working-directory: packages/nodes-base
           run: pnpm benchmark:run
+          upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}
+          token: ${{ secrets.CODSPEED_DEV_TOKEN }}
