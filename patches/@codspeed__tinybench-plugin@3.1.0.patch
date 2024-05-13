@@ -1,5 +1,5 @@
 diff --git a/dist/index.cjs.js b/dist/index.cjs.js
-index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..5f17a0ba1c348fd9fa36830ac217b3a271fd901d 100644
+index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..f08d01adcd1d5fa865fcac797aa145c1fa5e96c8 100644
 --- a/dist/index.cjs.js
 +++ b/dist/index.cjs.js
 @@ -67,7 +67,7 @@ function isCodSpeedBenchOptions(options) {
@@ -25,14 +25,14 @@ index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..5f17a0ba1c348fd9fa36830ac217b3a2
          await task.fn();
          await task.opts.afterEach?.call(task);
        });
-+      for (let i = 0; i < 1000; i++) {
++      for (let i = 0; i < 10; i++) {
 +        await optimize();
 +      }
        await task.opts.beforeEach?.call(task);
        await core.mongoMeasurement.start(uri);
        await async function __codspeed_root_frame__() {
 diff --git a/dist/index.es5.js b/dist/index.es5.js
-index e20505951341fbfe7a9142c222aff1221ab19530..626ee3ea69f4b6a8cb6173ad2d72c6cae4063b1a 100644
+index e20505951341fbfe7a9142c222aff1221ab19530..32af677af135352a6d7126cdcb40ef9ed8281570 100644
 --- a/dist/index.es5.js
 +++ b/dist/index.es5.js
 @@ -65,7 +65,7 @@ function isCodSpeedBenchOptions(options) {
@@ -58,7 +58,7 @@ index e20505951341fbfe7a9142c222aff1221ab19530..626ee3ea69f4b6a8cb6173ad2d72c6ca
          await task.fn();
          await task.opts.afterEach?.call(task);
        });
-+      for (let i = 0; i < 1000; i++) {
++      for (let i = 0; i < 10; i++) {
 +        await optimize();
 +      }
        await task.opts.beforeEach?.call(task);

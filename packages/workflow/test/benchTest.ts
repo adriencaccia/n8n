@@ -10,7 +10,9 @@ async function benchTest() {
 	const fixture = baseFixtures[fixtureIndex];
 	const test = fixture.tests[testIndex];
 
-	if ('error' in test || test.type === 'transform') return;
+	if ('error' in test || test.type === 'transform') {
+		throw new Error('Invalid test type');
+	}
 
 	console.log(`Benchmarking: ${fixture.expression} with pid: ${process.pid}`);
 
