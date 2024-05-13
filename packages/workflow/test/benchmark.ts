@@ -5,13 +5,15 @@ import { evaluate } from './evaluate';
 import type { INodeExecutionData } from '@/index';
 
 function addExpressionEvaluationTasks(bench: Bench) {
-	for (const fixture of baseFixtures) {
-		for (const test of fixture.tests) {
+	for (const [fixtureIndex, fixture] of baseFixtures.entries()) {
+		for (const [testIndex, test] of fixture.tests.entries()) {
 			if ('error' in test) continue;
 
 			if (test.type === 'evaluation') {
 				const input = test.input.map((d) => ({ json: d })) as INodeExecutionData[];
-				bench.add(fixture.expression, () => evaluate(fixture.expression, input));
+				bench.add(`fId:${fixtureIndex}-tId:${testIndex}:${fixture.expression}`, () =>
+					evaluate(fixture.expression, input),
+				);
 			}
 		}
 	}
