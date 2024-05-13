@@ -20,7 +20,7 @@ overrides:
 
 patchedDependencies:
   '@codspeed/tinybench-plugin@3.1.0':
-    hash: ywpin23vvqeq3ll2jtaph4267i
+    hash: dqrs72ysnfk7w7ybqww2i7r4ae
     path: patches/@codspeed__tinybench-plugin@3.1.0.patch
   '@sentry/cli@2.17.0':
     hash: nchnoezkq6p37qaiku3vrpwraq
@@ -1657,7 +1657,7 @@ importers:
     devDependencies:
       '@codspeed/tinybench-plugin':
         specifier: ^3.1.0
-        version: 3.1.0(patch_hash=ywpin23vvqeq3ll2jtaph4267i)(tinybench@2.8.0)
+        version: 3.1.0(patch_hash=dqrs72ysnfk7w7ybqww2i7r4ae)(tinybench@2.8.0)
       '@types/deep-equal':
         specifier: ^1.0.1
         version: 1.0.1
@@ -4760,7 +4760,7 @@ packages:
       - debug
     dev: true
 
-  /@codspeed/tinybench-plugin@3.1.0(patch_hash=ywpin23vvqeq3ll2jtaph4267i)(tinybench@2.8.0):
+  /@codspeed/tinybench-plugin@3.1.0(patch_hash=dqrs72ysnfk7w7ybqww2i7r4ae)(tinybench@2.8.0):
     resolution: {integrity: sha512-yl0WzzUGIXkZzWaw7+2U+xGkuIal1Rs9hS09DtlDZGGAcGRoMMU5d2vyCS8nBrna4hrPQZ5Sx/hIKerO+lqWaw==}
     peerDependencies:
       tinybench: ^2.3.0
