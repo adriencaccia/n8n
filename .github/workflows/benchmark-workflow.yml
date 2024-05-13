@@ -2,9 +2,10 @@ name: Benchmark workflow package
 
 on:
   pull_request:
-    paths:
-      - 'packages/workflow/**'
   workflow_dispatch:
+  push:
+    branches:
+      - master
 
 jobs:
   benchmark:
@@ -42,3 +43,5 @@ jobs:
         with:
           working-directory: packages/workflow
           run: pnpm benchmark:run
+          upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}
+          token: ${{ secrets.CODSPEED_DEV_TOKEN }}
