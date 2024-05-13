@@ -18,7 +18,9 @@ async function benchTest() {
 
 	const bench = withCodSpeed(new Bench());
 	const input = test.input.map((d) => ({ json: d })) as INodeExecutionData[];
-	bench.add(fixture.expression, () => evaluate(fixture.expression, input));
+	bench.add(`fId:${fixtureIndex}-tId:${testIndex}:${fixture.expression}`, () =>
+		evaluate(fixture.expression, input),
+	);
 
 	await bench.run();
 	console.table(bench.table());
