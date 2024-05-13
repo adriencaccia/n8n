@@ -1,0 +1,28 @@
+diff --git a/dist/index.cjs.js b/dist/index.cjs.js
+index a75964e40eaeff15df33fabd3c0bef20e9b1e5dd..78359d9cc0bcf3a3de7a11278407d2485fb563a4 100644
+--- a/dist/index.cjs.js
++++ b/dist/index.cjs.js
+@@ -89,7 +89,8 @@ function withCodSpeed(bench) {
+     console.log(`[CodSpeed] running with @codspeed/tinybench v${"3.1.0"}`);
+     core.setupCore();
+     for (const task of bench.tasks) {
+-      const uri = isCodSpeedBenchOptions(task.opts) ? task.opts.uri : `${rootCallingFile}::${task.name}`;
++      let uri = isCodSpeedBenchOptions(task.opts) ? task.opts.uri : `${rootCallingFile}::${task.name}`;
++      uri = uri.replaceAll("\n", "\\n").replaceAll("\t", "\\t");
+       await task.opts.beforeAll?.call(task);
+       await core.optimizeFunction(async () => {
+         await task.opts.beforeEach?.call(task);
+diff --git a/dist/index.es5.js b/dist/index.es5.js
+index e20505951341fbfe7a9142c222aff1221ab19530..728f832fc3e69c931ecc59c966f03d2946f2b84c 100644
+--- a/dist/index.es5.js
++++ b/dist/index.es5.js
+@@ -87,7 +87,8 @@ function withCodSpeed(bench) {
+     console.log(`[CodSpeed] running with @codspeed/tinybench v${"3.1.0"}`);
+     setupCore();
+     for (const task of bench.tasks) {
+-      const uri = isCodSpeedBenchOptions(task.opts) ? task.opts.uri : `${rootCallingFile}::${task.name}`;
++      let uri = isCodSpeedBenchOptions(task.opts) ? task.opts.uri : `${rootCallingFile}::${task.name}`;
++      uri = uri.replaceAll("\n", "\\n").replaceAll("\t", "\\t");
+       await task.opts.beforeAll?.call(task);
+       await optimizeFunction(async () => {
+         await task.opts.beforeEach?.call(task);
