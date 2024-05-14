@@ -1594,6 +1594,9 @@ importers:
       eslint-plugin-n8n-nodes-base:
         specifier: ^1.16.0
         version: 1.16.0(eslint@8.57.0)(typescript@5.4.2)
+      execa:
+        specifier: ^5.1.1
+        version: 5.1.1
       n8n-core:
         specifier: workspace:*
         version: link:../core
@@ -14536,7 +14539,7 @@ packages:
       human-signals: 5.0.0
       is-stream: 3.0.0
       merge-stream: 2.0.0
-      npm-run-path: 5.1.0
+      npm-run-path: 5.3.0
       onetime: 6.0.0
       signal-exit: 4.1.0
       strip-final-newline: 3.0.0
@@ -19436,8 +19439,8 @@ packages:
     dependencies:
       path-key: 3.1.1
 
-  /npm-run-path@5.1.0:
-    resolution: {integrity: sha512-sJOdmRGrY2sjNTRMbSvluQqg+8X7ZK61yvzBEIDhz4f8z1TZFYABsqjjCBd/0PUNE9M6QDgHJXQkGUEm7Q+l9Q==}
+  /npm-run-path@5.3.0:
+    resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       path-key: 4.0.0

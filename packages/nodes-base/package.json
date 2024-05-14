@@ -838,6 +838,7 @@
     "@types/uuid": "^8.3.2",
     "@types/xml2js": "^0.4.14",
     "eslint-plugin-n8n-nodes-base": "^1.16.0",
+    "execa": "^5.1.1",
     "n8n-core": "workspace:*",
     "tinybench": "^2.8.0"
   },
