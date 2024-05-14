@@ -1,31 +1,26 @@
-import { Bench } from 'tinybench';
-import { withCodSpeed } from '@codspeed/tinybench-plugin';
+import execa from 'execa';
 import { baseFixtures } from './ExpressionFixtures/base';
-import { evaluate } from './evaluate';
-import type { INodeExecutionData } from '@/index';
-
-function addExpressionEvaluationTasks(bench: Bench) {
-	for (const fixture of baseFixtures) {
-		for (const test of fixture.tests) {
-			if ('error' in test) continue;
-
-			if (test.type === 'evaluation') {
-				const input = test.input.map((d) => ({ json: d })) as INodeExecutionData[];
-				bench.add(fixture.expression, () => evaluate(fixture.expression, input));
-			}
-		}
-	}
-}
 
 async function main() {
-	const bench = withCodSpeed(new Bench());
+	const promises: Array<Promise<void>> = [];
 
-	addExpressionEvaluationTasks(bench);
+	for (const [fixtureIndex, fixture] of baseFixtures.entries()) {
+		for (const [testIndex, test] of fixture.tests.entries()) {
+			if ('error' in test || test.type === 'transform') continue;
 
-	await bench.warmup();
-	await bench.run();
+			promises.push(
+				(async () => {
+					const bench = await execa.node('dist/test/benchTest.js', [
+						fixtureIndex.toString(),
+						testIndex.toString(),
+					]);
+					console.log(bench.stdout);
+				})(),
+			);
+		}
+	}
 
-	console.table(bench.table());
+	await Promise.all(promises);
 }
 
 void main();
