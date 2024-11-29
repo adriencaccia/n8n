@@ -44,4 +44,4 @@ jobs:
           working-directory: packages/nodes-base
           run: pnpm benchmark:run
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}
-          token: ${{ secrets.CODSPEED_DEV_TOKEN }}
+          # token: ${{ secrets.CODSPEED_DEV_TOKEN }}
