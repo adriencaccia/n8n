@@ -1,36 +1,38 @@
-import glob from 'fast-glob';
-import Bench from 'tinybench';
-import { withCodSpeed } from '@codspeed/tinybench-plugin';
-import { setup, workflowToTests as toTests } from './nodes/Helpers';
-import { performExecution, setupExecution } from './nodes/ExecuteWorkflow';
+import execa from 'execa';
+// import glob from 'fast-glob';
+import { workflowToTests as toTests } from './nodes/Helpers';
+
+const filePaths = [
+	'nodes/Code/test/Code.workflow.json',
+	'nodes/Switch/V1/test/switch.expression.workflow.json',
+	'nodes/Microsoft/Excel/test/v2/node/table/append.workflow.json',
+	'nodes/Microsoft/Teams/test/v2/node/channel/get.workflow.json',
+	'nodes/Microsoft/Excel/test/v2/node/worksheet/readRows.workflow.json',
+	'nodes/ReadPdf/test/ReadPDF.workflow.json',
+	'nodes/Microsoft/Teams/test/v2/node/task/get.workflow.json',
+	'nodes/Discord/test/v2/node/member/roleAdd.workflow.json',
+	'nodes/Discord/test/v2/node/member/getAll.workflow.json',
+	'nodes/Microsoft/Outlook/test/v2/node/folderMessage/getAll.workflow.json',
+];
+console.log(`Found ${filePaths.length} workflows to benchmark`);
+const tests = toTests(filePaths);
+console.log(`Running ${tests.length} tests`);
 
 async function main() {
-	const filePaths = await glob('nodes/**/*.workflow.json');
+	// const filePaths = await glob('nodes/**/*.workflow.json');
 
-	console.log(`Found ${filePaths.length} workflows to benchmark`);
+	const promises: Array<Promise<void>> = [];
 
-	const tests = toTests(filePaths);
-	const nodeTypes = setup(tests);
-	const bench = withCodSpeed(new Bench({ time: 0, iterations: 1 })); // @TODO temp config
-
-	for (const test of tests) {
-		const { waitPromise, additionalData, executionMode, workflowInstance, nodeExecutionOrder } =
-			await setupExecution(test, nodeTypes);
-
-		bench.add(test.description, async () => {
-			await performExecution(
-				waitPromise,
-				additionalData,
-				executionMode,
-				test,
-				workflowInstance,
-				nodeExecutionOrder,
-			);
-		});
+	for (const [testIndex, _test] of tests.entries()) {
+		promises.push(
+			(async () => {
+				const bench = await execa.node('dist/test/benchTest.js', [testIndex.toString()]);
+				console.log(bench.stdout);
+			})(),
+		);
 	}
 
-	await bench.warmup();
-	await bench.run();
+	await Promise.all(promises);
 }
 
 void main();
